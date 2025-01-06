@@ -20,7 +20,7 @@ export const getServerSideProps = () => {
 }
 
 // InferGetServerSidePropsType는 getServerSideProps의 타입을 추론하는 넥스트 내장 타입
-export default function Home({ data }: InferGetServerSidePropsType<typeof getServerSideProps) {
+export default function Home({ data }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   console.log(data)
   useEffect(() => {
     console.log(window)
