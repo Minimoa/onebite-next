@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import fetchOneBook from '@/lib/fetch-one-book'
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
 import style from './[id].module.css'
@@ -16,7 +17,6 @@ export default function Page({book}: InferGetServerSidePropsType<typeof getServe
     return '문제가 발생했습니다. 다시 시도하세요'
   }
   const {
-    id,
     title,
     subTitle,
     description,
