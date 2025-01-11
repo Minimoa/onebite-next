@@ -1,9 +1,12 @@
 // clinet component 로 사용하기 위한 디렉티브
 // "use client"
 
+import ClientComponent from './search/client-component';
+import ServerComponnet from './search/server-component';
+
 export default function Home() {
   console.log('HomeCaomponent 실행')
   return (
-    <div>인덱스 페이지</div>
+    <div><ClientComponent><ServerComponnet/></ClientComponent></div>
   );
 }
