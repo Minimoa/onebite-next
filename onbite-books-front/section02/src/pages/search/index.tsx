@@ -32,6 +32,7 @@ export default function Page () {
       // 검색 결과를 불러오는 로직
       fetchSearchResult()
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   },[q])
   
   return (
