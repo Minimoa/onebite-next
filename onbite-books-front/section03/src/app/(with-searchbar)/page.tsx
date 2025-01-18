@@ -1,12 +1,24 @@
 // clinet component 로 사용하기 위한 디렉티브
 // "use client"
-
-import ClientComponent from '@/components/client-component';
-import ServerComponnet from '@/components/server-component';
+import BookItem from "@/components/book-item";
+import style from "./page.module.css";
+import books from "@/mock/books.json";
 
 export default function Home() {
-  console.log('HomeCaomponent 실행')
   return (
-    <div><ClientComponent><ServerComponnet/></ClientComponent></div>
+    <div className={style.container}>
+      <section>
+        <h3>지금 추천하는 도서</h3>
+        {books.map((book) => (
+          <BookItem key={book.id} {...book} />
+        ))}
+      </section>
+      <section>
+        <h3>등록된 모든 도서</h3>
+        {books.map((book) => (
+          <BookItem key={book.id} {...book} />
+        ))}
+      </section>
+    </div>
   );
 }
