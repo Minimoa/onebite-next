@@ -15,9 +15,9 @@ import { ReviewEditor } from '@/components/review-editor';
 // 4. error: 페이지를 강제로 Static 페이지로 설정 (설정하면 안되는 이유가 있으면 -> 빌드 오류)
 
 // 빌드 타임에 미리 생성할 페이지 정보를 넘길 수 있음
-// export function generateStaticParams () {
-//   return [{id: '1'}, {id: '2'}, {id: '3'}] // 문자열 데이터로만 명시해야함
-// }
+export function generateStaticParams () {
+  return [{id: '1'}, {id: '2'}, {id: '3'}] // 문자열 데이터로만 명시해야함
+}
 
 async function BookDetail({bookId}:{bookId: string}) {
   const response = await fetch(`${process.env.NEXT_PUBLIC_API_SERVER_URL}/book/${bookId}`)
