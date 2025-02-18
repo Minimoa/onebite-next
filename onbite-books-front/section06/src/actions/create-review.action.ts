@@ -1,24 +1,31 @@
 "use server"
 
-import { revalidatePath, revalidateTag } from 'next/cache'
+import { delay } from '@/util/delay'
+import { revalidateTag } from 'next/cache'
 
-export async function createReviewAction(formData: FormData) {
+export async function createReviewAction(_: any, formData: FormData) {
   const content = formData.get('content')?.toString()
   const author = formData.get('author')?.toString()
   const bookId = formData.get('bookId')?.toString()
 
   if (!(content && author && bookId)) {
-    return
+    return {
+      status: false,
+      error: '리뷰 내용과 작성자를 입력해주세요'
+    }
   }
 
   try {
-    const reponse = await fetch(`${process.env.NEXT_PUBLIC_API_SERVER_URL}/review`, 
+    await delay(2000)
+    const reponse = await fetch(`${process.env.NEXT_PUBLIC_API_SERVER_URL}/review/1`, 
       {
         method: 'POST',
         body: JSON.stringify({bookId, content, author})
       }
     )
-    console.log(reponse.status)
+    if (!reponse.ok) {
+      throw new Error(reponse.statusText)
+    }
 
     // // 1. 특정 주소의 해당하는 페이지만 재검증
     // revalidatePath(`/book/${bookId}`)
@@ -34,9 +41,16 @@ export async function createReviewAction(formData: FormData) {
 
     // 5. 태그 기준, 데이터 캐시 재검증 (데이터 fetch 시에 tag 설정 할 수 있음)
     revalidateTag(`review-${bookId}`)
+    return {
+      status: true,
+      error: ''
+    }
 
   }catch(err) {
     console.error(err)
-    return
+    return {
+      status: false,
+      error: `리뷰 저장에 실패했습니다. ${err}`
+    }
   }
 }

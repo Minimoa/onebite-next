@@ -1,15 +1,29 @@
+"use client"
+
 import { createReviewAction } from '@/actions/create-review.action';
 import style from './review-editor.module.css'
+import { useActionState, useEffect } from 'react';
 
 export function ReviewEditor({bookId}: {bookId: string}) {
-  return <section>
-    <form action={createReviewAction} className={style.form_container}>
+
+  const [state, formAction, isPending] = useActionState(createReviewAction, null)
+  
+  useEffect(() => {
+    if (state && !state.status) {
+      alert(state.error)
+    }
+  }, [state])
+
+  return (<section>
+    <form action={formAction} className={style.form_container}>
       <input name="bookId" value={bookId} hidden readOnly/>
-      <textarea name="content" placeholder='리뷰 내용' required/>
+      <textarea name="content" placeholder='리뷰 내용' disabled={isPending}  required/>
       <div className={style.submit_container}>
-        <input name="author" placeholder='작성자' required/>
-        <button type="submit">작성하기</button>
+        <input name="author" placeholder='작성자'disabled={isPending}  required/>
+        <button type="submit" disabled={isPending}>
+          {isPending ? '...' : '작성하기'}
+        </button>
       </div>
     </form>
-  </section>
+  </section>)
 }
