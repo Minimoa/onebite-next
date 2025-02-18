@@ -1,6 +1,6 @@
 "use server"
 
-import { revalidatePath } from 'next/cache'
+import { revalidatePath, revalidateTag } from 'next/cache'
 
 export async function createReviewAction(formData: FormData) {
   const content = formData.get('content')?.toString()
@@ -19,7 +19,22 @@ export async function createReviewAction(formData: FormData) {
       }
     )
     console.log(reponse.status)
-    revalidatePath(`/book/${bookId}`)
+
+    // // 1. 특정 주소의 해당하는 페이지만 재검증
+    // revalidatePath(`/book/${bookId}`)
+
+    // // 2. 특정 경로의 모든 동적 페이지를 재검증 (파일 경로, "page")
+    // revalidatePath(`/book/[id]`, "page")
+
+    // // // 3. 특정 레이아웃을 갖는 모든 페이지 재검증 (layout 파일 경로, "layout")
+    // revalidatePath(`/(with-serachbar)`, "layout")
+
+    // // // 4. 모든 데이터 재검증
+    // revalidatePath(`/`, "layout")
+
+    // 5. 태그 기준, 데이터 캐시 재검증 (데이터 fetch 시에 tag 설정 할 수 있음)
+    revalidateTag(`review-${bookId}`)
+
   }catch(err) {
     console.error(err)
     return
