@@ -10,7 +10,6 @@ import BookListSkeleton from "@/components/skeleton/book-list-skeleton";
 import { Metadata } from "next";
 
 async function AllBooks() {
-  await delay(1500)
   const response = await fetch(`${process.env.NEXT_PUBLIC_API_SERVER_URL}/book`,
     {cache: "force-cache"}
   )
@@ -25,7 +24,6 @@ async function AllBooks() {
   </div>
 }
 async function RecoBooks() {
-  await delay(3000)
   const response = await fetch(`${process.env.NEXT_PUBLIC_API_SERVER_URL}/book/random`,
     {next: {revalidate: 3}}
   )

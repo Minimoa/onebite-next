@@ -3,7 +3,7 @@ import style from "./page.module.css";
 import { notFound } from "next/navigation";
 import ReviewItem from '@/components/review-item';
 import { ReviewEditor } from '@/components/review-editor';
-import Image from 'next/Image'
+import Image from 'next/image'
 // StaticParams에서 제공된 params 외에는 생성하지 않도록 하려면 false
 // export const dynamicParams = false
 
