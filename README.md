@@ -25,3 +25,14 @@ pnpm i
 ```
 pnpm run start
 ```
+
+
+## deploy
+
+```
+pnpm i -g vercel
+vercel login
+vercel
+
+// 재배포시 vercel --prod
+```
