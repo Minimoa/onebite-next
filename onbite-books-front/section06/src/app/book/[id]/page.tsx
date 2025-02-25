@@ -58,6 +58,31 @@ async function ReviewList({bookId}: {bookId: string}) {
   const reviews:ReviewData[] = await response.json()
   return (<section>{reviews.map((review) => <ReviewItem key={`review-item-${review.id}`}  {...review}/>)}</section>)
 }
+
+
+export async function generateMetadata({
+  params
+}: {
+  params: Promise<{id: string}>
+}) {
+  const {id} = await params
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_SERVER_URL}/book/${id}`)
+
+  if (!response.ok) {
+    throw new Error
+  }
+
+  const book: BookData = await response.json()
+  return {
+    title: `${book.title} - 한입북스`,
+    description: `${book.description}`,
+    openGraph: {
+      title: `${book.title} - 한입북스`,
+      description: `${book.description}`,
+      images: [book.coverImgUrl]
+    }
+  }
+}
 export default async function Page({ params }: { params: Promise<{ id: string }> }) {
   const paramsId = (await params).id
   return (
