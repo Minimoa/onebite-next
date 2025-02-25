@@ -25,7 +25,6 @@ export default function RootLayout({
   children: React.ReactNode;
   modal: React.ReactNode
 }>) {
-  console.log(modal)
   return (
     <html lang="en">
       <body>
